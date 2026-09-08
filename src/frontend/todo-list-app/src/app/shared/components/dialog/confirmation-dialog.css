@@ -1,0 +1,28 @@
+.confirmation-dialog {
+  min-width: min(360px, 100%);
+}
+
+.confirmation-dialog-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #b91c1c;
+  font-weight: 700;
+}
+
+.confirmation-dialog-message {
+  margin: 0;
+  color: #334155;
+  line-height: 1.5;
+}
+
+.confirmation-dialog-warning {
+  margin: 8px 0 0;
+  color: #64748b;
+  font-size: 0.875rem;
+}
+
+mat-dialog-actions {
+  gap: 8px;
+  padding-bottom: 8px;
+}

@@ -1,0 +1,65 @@
+# ============================================================
+# Visual Studio / .NET
+# ============================================================
+
+# Build output
+[Bb]in/
+[Oo]bj/
+
+# NuGet
+*.nupkg
+*.snupkg
+packages/
+.nuget/
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+# .NET logs
+*.log
+*.vs/
+
+# ============================================================
+# Test Results / Code Coverage
+# ============================================================
+
+TestResults/
+coverage/
+coverage-report/
+
+*.coverage
+*.coveragexml
+coverage.cobertura.xml
+
+# Coverlet
+*.opencover.xml
+
+
+# ============================================================
+# Node.js / Angular
+# ============================================================
+
+# Dependencies
+node_modules/
+
+# Angular
+.angular/
+dist/
+out-tsc/
+.cache/
+tmp/
+
+*.vscode/
+
+# npm logs
+npm-debug.log*
+npm-error.log*
+
+# Yarn logs
+yarn-debug.log*
+yarn-error.log*
+
+# Package manager caches
+.npm/
+.pnpm-store/
+

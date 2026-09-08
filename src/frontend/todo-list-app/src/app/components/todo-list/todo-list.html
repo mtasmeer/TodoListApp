@@ -1,0 +1,133 @@
+<main class="page-wrapper">
+  <mat-card class="todo-card">
+    <mat-card-header class="todo-header">
+      <div class="header-title-group">
+        <mat-card-title class="app-title">My TODO List Application</mat-card-title>
+        <mat-card-subtitle class="app-subtitle">
+          Keep track of what needs to get done.
+        </mat-card-subtitle>
+      </div>
+
+      <div class="todo-badge">
+        <span class="count-number">{{ todos().length }}</span>
+        <span class="count-label">{{ todos().length === 1 ? 'item' : 'items' }}</span>
+      </div>
+    </mat-card-header>
+
+    <mat-card-content class="card-body">
+      <!-- Input Form -->
+      <form class="add-form" (ngSubmit)="addTodo()" aria-label="Add a TODO">
+        <mat-form-field appearance="outline" class="title-input">
+          <mat-label>What needs to be done?</mat-label>
+          <input matInput
+                 type="text"
+                 name="todoTitle"
+                 [ngModel]="newTodoTitle()"
+                 (ngModelChange)="newTodoTitle.set($event)"
+                 maxlength="200"
+                 autocomplete="off"
+                 [disabled]="isAdding()" />
+        </mat-form-field>
+
+        <button mat-flat-button
+                color="primary"
+                type="submit"
+                class="add-button"
+                [disabled]="!newTodoTitle().trim() || isAdding()"
+                [attr.aria-busy]="isAdding()">
+          @if (isAdding()) {
+          <mat-spinner diameter="20" class="inline-spinner"></mat-spinner>
+          }
+          <mat-icon aria-hidden="true" [class.icon-hidden]="isAdding()">add</mat-icon>
+          <span>{{ isAdding() ? 'Adding...' : 'Add TODO' }}</span>
+        </button>
+      </form>
+
+      <!-- Error State -->
+      @if (errorMessage()) {
+      <div class="error-banner" role="alert">
+        <mat-icon>error_outline</mat-icon>
+        <span>{{ errorMessage() }}</span>
+      </div>
+      }
+
+      <!-- Loading State -->
+      @if (isLoading()) {
+      <div class="state-container loading-state" role="status" aria-live="polite">
+        <mat-spinner diameter="40"></mat-spinner>
+        <p>Loading your tasks...</p>
+      </div>
+      }
+
+      <!-- Empty State -->
+      @if (!isLoading() && todos().length === 0) {
+      <div class="state-container empty-state">
+        <div class="empty-icon-wrapper">
+          <mat-icon class="checkmark-icon">task_alt</mat-icon>
+        </div>
+        <h2>No TODOs yet</h2>
+        <p>Add your first task using the input form above.</p>
+      </div>
+      }
+
+      <!-- Data Table -->
+      @if (!isLoading() && todos().length > 0) {
+      <div class="table-container">
+        <table mat-table
+               [dataSource]="todos()"
+               class="modern-table"
+               aria-label="TODO items">
+
+          <!-- Title Column -->
+          <ng-container matColumnDef="title">
+            <th mat-header-cell *matHeaderCellDef scope="col">Task</th>
+            <td mat-cell *matCellDef="let todo" class="task-cell">
+              <span class="task-title">{{ todo.title }}</span>
+            </td>
+          </ng-container>
+
+          <!-- Created Date Column -->
+          <ng-container matColumnDef="createdAt">
+            <th mat-header-cell *matHeaderCellDef scope="col">Task Date</th>
+            <td mat-cell *matCellDef="let todo" class="date-cell">
+              {{ todo.createdAtUtc | date:'medium' }}
+            </td>
+          </ng-container>
+
+          <!-- Actions Column -->
+          <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef class="actions-header" scope="col">Actions</th>
+            <td mat-cell *matCellDef="let todo" class="actions-cell">
+              <button mat-stroked-button
+                      color="warn"
+                      type="button"
+                      class="delete-button"
+                      [disabled]="deletingTodoId() === todo.id"
+                      (click)="deleteTodo(todo)"
+                      [attr.aria-label]="'Delete ' + todo.title"
+                      [attr.aria-busy]="deletingTodoId() === todo.id">
+                @if (deletingTodoId() === todo.id) {
+                <mat-spinner diameter="16" class="inline-spinner"></mat-spinner>
+                }
+                <mat-icon aria-hidden="true"
+                          [class.icon-hidden]="deletingTodoId() === todo.id">delete_outline</mat-icon>
+                <span>{{ deletingTodoId() === todo.id ? 'Deleting...' : 'Delete' }}</span>
+              </button>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="table-row"></tr>
+
+          <tr class="mat-row" *matNoDataRow>
+            <td class="mat-cell no-results-cell" [attr.colspan]="displayedColumns.length">
+              No TODOs found.
+            </td>
+          </tr>
+
+        </table>
+      </div>
+      }
+    </mat-card-content>
+  </mat-card>
+</main>

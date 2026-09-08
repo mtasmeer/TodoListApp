@@ -1,0 +1,20 @@
+<Solution>
+  <Folder Name="/src/" />
+  <Folder Name="/src/backend/">
+    <Project Path="src/backend/TodoListApp.Api/TodoListApp.Api.csproj" />
+    <Project Path="src/backend/TodoListApp.Application/TodoListApp.Application.csproj" />
+    <Project Path="src/backend/TodoListApp.Domain/TodoListApp.Domain.csproj" />
+    <Project Path="src/backend/TodoListApp.Infrastructure/TodoListApp.Infrastructure.csproj" />
+  </Folder>
+  <Folder Name="/src/frontend/">
+    <Project Path="src/frontend/todo-list-app/todo-list-app.esproj">
+      <Build />
+      <Deploy />
+    </Project>
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/backend/TodoListApp.Api.Tests/TodoListApp.Api.Tests.csproj" />
+    <Project Path="tests/backend/TodoListApp.Application.Tests/TodoListApp.Application.Tests.csproj" />
+    <Project Path="tests/backend/TodoListApp.Infrastructure.Tests/TodoListApp.Infrastructure.Tests.csproj" />
+  </Folder>
+</Solution>

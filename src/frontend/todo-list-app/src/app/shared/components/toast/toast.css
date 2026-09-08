@@ -1,0 +1,16 @@
+:host {
+  display: block;
+}
+
+.toast-content {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 600;
+}
+
+.toast-content mat-icon {
+  width: 20px;
+  height: 20px;
+  font-size: 20px;
+}
